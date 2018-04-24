@@ -29,7 +29,10 @@ def nmap(target, opcja):
 	if target != "hosty":
 
 		porty = "1-65535"
+		porty = "1-1000"
 		szybkosc = "-T4"
+		szybkosc = "-T3"
+		szybkosc = "-T1"
 
 		if not opcja:
 			subprocess.call("nmap -sF -n "+szybkosc+" -p "+porty+" -A -v -Pn --version-all -oX /home/danielubi/python_nauka/temp/"+target+".xml " + target, shell=True)
@@ -38,7 +41,7 @@ def nmap(target, opcja):
 
 
 		elif opcja[0] == "szybko":
-			
+
 			subprocess.call("nmap -sF -n -T4 -p 1-1000 -A -v -Pn --version-all -oX "+target+".xml " + target, shell=True)
 			subprocess.call("xsltproc "+target+".xml -o "+target+".html" , shell=True)
 			print "szybko poszlo"
@@ -50,10 +53,9 @@ def nmap(target, opcja):
 			print "wolno szlo"
 
 
-		elif opcja[0] == "":
-			subprocess.call("nmap -sT -n -p 1-1000 -A -v -Pn --version-all -oX "+target+".xml " + target, shell=True)
-			subprocess.call("xsltproc "+target+".xml -o "+target+".html" , shell=True)
-			print "dzien dobry"
+		subprocess.call("nmap -sT -n -p 1-1000 -A -v -Pn --version-all -oX "+target+".xml " + target, shell=True)
+		subprocess.call("xsltproc "+target+".xml -o "+target+".html" , shell=True)
+		print "dzien dobry"
 
 	elif target == "hosty":
 
